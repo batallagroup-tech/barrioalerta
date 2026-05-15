@@ -1,0 +1,10 @@
+{
+  "name": "BarrioAlerta",
+  "description": "Una aplicación de seguridad y ayuda comunitaria hiper-local basada en geocercas simuladas.",
+  "requestFramePermissions": [
+    "geolocation",
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": []
+}

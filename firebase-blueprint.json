@@ -1,0 +1,87 @@
+{
+  "entities": {
+    "Incident": {
+      "title": "Incident",
+      "description": "A safety incident reported by a user.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "category": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "location": {
+          "type": "object",
+          "properties": {
+            "lat": { "type": "number" },
+            "lng": { "type": "number" }
+          }
+        },
+        "timestamp": { "type": "number" },
+        "verifiedCount": { "type": "number" },
+        "reportCount": { "type": "number" },
+        "imageUrls": { "type": "array", "items": { "type": "string" } },
+        "isSensitive": { "type": "boolean" },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "category", "title", "location", "timestamp"]
+    },
+    "LocalGroup": {
+      "title": "LocalGroup",
+      "description": "A neighborhood watch or assistance group.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "phone": { "type": "string" },
+        "verified": { "type": "boolean" }
+      },
+      "required": ["id", "name", "phone"]
+    },
+    "User": {
+      "title": "User",
+      "description": "User profile and settings.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "isVerified": { "type": "boolean" },
+        "fcmToken": { "type": "string" }
+      }
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "A message sent in the community chat.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "text": { "type": "string" },
+        "timestamp": { "type": "object" },
+        "type": { "type": "string", "enum": ["text", "image", "alert_link"] },
+        "incidentId": { "type": "string" }
+      },
+      "required": ["userId", "userName", "text", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/incidents/{incidentId}": {
+      "schema": "Incident",
+      "description": "Collection of all safety incidents."
+    },
+    "/community_messages/{messageId}": {
+      "schema": "ChatMessage",
+      "description": "Real-time community chat messages."
+    },
+    "/localGroups/{groupId}": {
+      "schema": "LocalGroup",
+      "description": "Verified neighborhood help groups."
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Private user profiles."
+    }
+  }
+}
