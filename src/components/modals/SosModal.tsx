@@ -30,7 +30,7 @@ export const SosModal: React.FC<SosModalProps> = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="absolute inset-x-0 bottom-0 z-[101] bg-slate-900 p-4 sm:p-6 rounded-t-[2rem] sm:rounded-t-[2.5rem] border-t border-red-500 border-x border-x-red-500/20 shadow-[0_-15px_60px_-15px_rgba(239,68,68,0.5)] flex flex-col max-h-[92vh]">
+        <div className="fixed inset-x-0 bottom-0 z-[200] bg-slate-900 p-4 sm:p-6 rounded-t-[2rem] sm:rounded-t-[2.5rem] border-t border-red-500 border-x border-x-red-500/20 shadow-[0_-15px_60px_-15px_rgba(239,68,68,0.5)] flex flex-col max-h-[92vh]">
           <motion.div
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
@@ -143,6 +143,7 @@ export const SosModal: React.FC<SosModalProps> = ({
     </AnimatePresence>
   );
 };
+
 
 
 

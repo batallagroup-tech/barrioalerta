@@ -58,7 +58,7 @@ export const noticeService = {
         event: 'INSERT',
         schema: 'public',
         table: 'notices',
-      }, () => {
+      }, (payload) => {
         supabase
           .from('notices')
           .select('*')
