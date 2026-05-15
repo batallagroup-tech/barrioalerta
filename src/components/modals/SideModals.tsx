@@ -54,9 +54,9 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
               <Shield size={40} className="text-red-500" />
             </div>
             <div className="text-center space-y-2">
-              <h2 className="text-xl font-black text-white tracking-tighter">Ãšnete a BarrioAlerta</h2>
+              <h2 className="text-xl font-black text-white tracking-tighter">?nete a BarrioAlerta</h2>
               <p className="text-slate-400 text-sm leading-relaxed">
-                Inicia sesiÃ³n para publicar incidentes, chatear con vecinos y personalizar tu perfil.
+                Inicia sesi?n para publicar incidentes, chatear con vecinos y personalizar tu perfil.
               </p>
             </div>
             <button
@@ -147,7 +147,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                     className="p-3 flex items-center justify-between cursor-pointer bg-slate-800/5 hover:bg-slate-800/20 rounded-lg border border-white/5 transition-all"
                     onClick={() => setShowPublicName(!showPublicName)}
                   >
-                    <p className="text-[11px] font-black text-slate-300">Apodo PÃºblico</p>
+                    <p className="text-[11px] font-black text-slate-300">Apodo P?blico</p>
                     <div className={`w-8 h-4.5 ${showPublicName ? 'bg-blue-600' : 'bg-slate-800'} rounded-full flex items-center p-0.5 transition-all`}>
                       <motion.div animate={{ x: showPublicName ? 14 : 0 }} className="w-3.5 h-3.5 bg-white rounded-full shadow-sm" />
                     </div>
@@ -175,7 +175,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                   onClick={() => { onLogout?.(); onClose(); }}
                   className="w-full py-3.5 bg-slate-800 hover:bg-red-600/20 text-red-400 hover:text-red-300 rounded-xl font-black uppercase tracking-[0.1em] text-[10px] active:scale-95 transition-all"
                 >
-                  Cerrar SesiÃ³n
+                  Cerrar Sesi?n
                 </button>
               </div>
             </div>
@@ -275,24 +275,24 @@ export const ZonesModal: React.FC<{
                 <div className="space-y-4">
                   <div className="flex items-center justify-between px-1">
                     <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Monitoreo Remoto</p>
-                    <span className="text-[10px] bg-yellow-500/10 text-yellow-500 px-2 py-0.5 rounded-full font-black uppercase">PrÃ³ximamente</span>
+                    <span className="text-[10px] bg-yellow-500/10 text-yellow-500 px-2 py-0.5 rounded-full font-black uppercase">Pr?ximamente</span>
                   </div>
                   <div className="bg-slate-800/20 border border-slate-700/50 rounded-2xl p-4 flex items-center gap-3">
                     <div className="w-8 h-8 rounded-lg bg-slate-700/50 flex items-center justify-center text-slate-500">
                       <MapPin size={16} />
                     </div>
-                    <p className="text-[11px] text-slate-500 font-bold">PodrÃ¡s vigilar zonas remotas como la casa de un familiar o tu trabajo.</p>
+                    <p className="text-[11px] text-slate-500 font-bold">Podr?s vigilar zonas remotas como la casa de un familiar o tu trabajo.</p>
                   </div>
                 </div>
               </div>
 
-              {/* BotÃ³n Guardar */}
+              {/* Bot?n Guardar */}
               <div className="pt-4 mt-2 border-t border-white/5">
                 <button
                   onClick={() => { onSave(); onClose(); }}
                   className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-black uppercase tracking-[0.1em] text-[10px] shadow-lg active:scale-95 transition-all"
                 >
-                  Guardar ConfiguraciÃ³n
+                  Guardar Configuraci?n
                 </button>
               </div>
             </motion.div>
