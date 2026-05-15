@@ -42,7 +42,7 @@ function toNotice(row: any): Notice {
 
 export const noticeService = {
   subscribeToNotices(callback: (notices: Notice[]) => void) {
-    const cutoff = new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString();
+    const cutoff = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
 
     supabase
       .from('notices')

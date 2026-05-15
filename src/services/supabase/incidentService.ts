@@ -126,7 +126,7 @@ export const incidentService = {
   },
 
   subscribeToIncidents(callback: (incidents: Incident[]) => void) {
-    const cutoff = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+    const cutoff = new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString();
 
     // Carga inicial
     supabase
