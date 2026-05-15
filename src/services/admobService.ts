@@ -1,9 +1,9 @@
-import { AdMob, BannerAdOptions, BannerAdSize, BannerAdPosition } from '@capacitor-community/admob';
+﻿import { AdMob, BannerAdOptions, BannerAdSize, BannerAdPosition } from '@capacitor-community/admob';
 import { Capacitor } from '@capacitor/core';
 
 const BANNER_ID = 'ca-app-pub-3849768825456219/4740449107';
 const TEST_BANNER_ID = 'ca-app-pub-3940256099954/6300978111';
-const isDev = false;
+const isDev = import.meta.env.DEV;
 
 // Estado interno para evitar llamadas duplicadas que crashean AdView
 let bannerShown = false;
@@ -63,6 +63,7 @@ export const admobService = {
     }
   }
 };
+
 
 
 
