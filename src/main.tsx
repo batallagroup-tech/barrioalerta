@@ -27,31 +27,29 @@ async function handleDeepLink(url: string) {
     const hash = parsed.hash.startsWith("#") ? parsed.hash.slice(1) : parsed.hash;
     params = new URLSearchParams(hash || parsed.search);
   } catch {
-    console.warn("[main] URL invÃ¡lida:", url);
+    console.warn("[main] URL invalida:", url);
     return;
   }
 
-  const accessToken = params.get("access_token");
-  const refreshToken = params.get("refresh_token") ?? "";
+  const code = params.get("code");
   const tokenHash = params.get("token_hash");
   const type = params.get("type");
 
-  // Cerrar el InAppBrowser inmediatamente
   await Browser.close().catch(() => {});
 
   if (tokenHash && type) {
-    console.log("[main] Magic Link â€” verifyOtp...");
+    console.log("[main] Magic Link - verifyOtp...");
     const { error } = await supabase.auth.verifyOtp({ token_hash: tokenHash, type: type as any });
     if (error) console.error("[main] verifyOtp error:", error.message);
-    else console.log("[main] verifyOtp OK âœ“");
+    else console.log("[main] verifyOtp OK");
     return;
   }
 
-  if (accessToken) {
-    console.log("[main] OAuth â€” setSession...");
-    const { error } = await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
-    if (error) console.error("[main] setSession error:", error.message);
-    else console.log("[main] setSession OK âœ“");
+  if (code) {
+    console.log("[main] OAuth PKCE - exchangeCodeForSession...");
+    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    if (error) console.error("[main] exchangeCode error:", error.message);
+    else console.log("[main] exchangeCode OK");
     return;
   }
 
