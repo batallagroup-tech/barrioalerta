@@ -1,4 +1,4 @@
-﻿import { supabase } from '../../lib/supabase';
+import { supabase } from '../../lib/supabase';
 import { Incident } from '../../types';
 
 const TABLE = 'incidents';
@@ -144,7 +144,7 @@ export const incidentService = {
     const channel = supabase
       .channel('incidents-feed')
       .on('postgres_changes', {
-        event: 'INSERT',
+        event: '*',
         schema: 'public',
         table: TABLE,
       }, () => {
@@ -193,3 +193,4 @@ export const incidentService = {
     return () => supabase.removeChannel(channel);
   }
 };
+
