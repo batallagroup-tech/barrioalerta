@@ -1,4 +1,5 @@
 ﻿import React from 'react';
+import { Capacitor } from '@capacitor/core';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   X, UserSearch, Info, Shield, MapPin, Trash2, Plus, HeartHandshake,
@@ -8,6 +9,7 @@ import {
 import { UserProfile, UserState } from '../../types';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { MapView } from '../map/MapView';
+import { Share } from '@capacitor/share';
 import { CATEGORIES, CATEGORY_CONFIG } from '../../constants/categories';
 
 interface ProfileModalProps {
@@ -165,6 +167,26 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
               </div>
               
 <div className="pt-4 mt-4 shrink-0 border-t border-white/5 space-y-2">
+                {Capacitor.isNativePlatform() && (
+                  <div className="bg-blue-600/10 border border-blue-500/20 rounded-xl p-3 space-y-2">
+                    <p className="text-[9px] font-black text-blue-400 uppercase tracking-widest">📱 ¿Tienes amigos con iPhone?</p>
+                    <p className="text-[10px] text-slate-400 leading-relaxed">Compárteles BarrioAlerta, disponible como app web para iOS.</p>
+                    <button
+                      onClick={async () => {
+                        await Share.share({
+                          title: "BarrioAlerta",
+                          text: "Únete a BarrioAlerta, la app de seguridad vecinal. Disponible para iPhone aquí:",
+                          url: "https://batallagroup-tech.github.io/barrioalerta/",
+                          dialogTitle: "Compartir BarrioAlerta",
+                        });
+                      }}
+                      className="w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-black uppercase tracking-widest text-[9px] active:scale-95 transition-all flex items-center justify-center gap-2"
+                    >
+                      <Smartphone size={12} />
+                      Compartir link para iPhone
+                    </button>
+                  </div>
+                )}
                 <button
                   onClick={onSave}
                   className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-black uppercase tracking-[0.1em] text-[10px] shadow-lg active:scale-95 transition-all"
@@ -301,4 +323,6 @@ export const ZonesModal: React.FC<{
       </AnimatePresence>
     );
   };
+
+
 
