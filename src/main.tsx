@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
@@ -13,25 +13,25 @@ import { supabase } from "./lib/supabase";
 registerServiceWorker();
 
 // Manejar OAuth callback en PWA
-if (!(window as any).Capacitor?.isNativePlatform?.()) {
-  const params = new URLSearchParams(window.location.search);
-  const code = params.get("code");
-  if (code) {
-    supabase.auth.exchangeCodeForSession(code).then(() => {
+const _w = window as any;
+if (!_w.Capacitor?.isNativePlatform?.()) {
+  const pwaParams = new URLSearchParams(window.location.search);
+  const pwaCode = pwaParams.get("code");
+  if (pwaCode) {
+    supabase.auth.exchangeCodeForSession(pwaCode).then(() => {
       window.history.replaceState({}, "", window.location.pathname);
     });
   }
 }
+
 oneSignalService.init().catch(() => {});
 admobService.initialize().catch(() => {});
 
 async function handleDeepLink(url: string) {
   console.log("[main] handleDeepLink:", url);
-
   const normalized = url
     .replace("com.barrioalerta.app://", "https://placeholder.com/")
     .replace("com.barrioalerta.app:", "https://placeholder.com");
-
   let params: URLSearchParams;
   try {
     const parsed = new URL(normalized);
@@ -41,13 +41,10 @@ async function handleDeepLink(url: string) {
     console.warn("[main] URL invalida:", url);
     return;
   }
-
   const code = params.get("code");
   const tokenHash = params.get("token_hash");
   const type = params.get("type");
-
   await Browser.close().catch(() => {});
-
   if (tokenHash && type) {
     console.log("[main] Magic Link - verifyOtp...");
     const { error } = await supabase.auth.verifyOtp({ token_hash: tokenHash, type: type as any });
@@ -55,7 +52,6 @@ async function handleDeepLink(url: string) {
     else console.log("[main] verifyOtp OK");
     return;
   }
-
   if (code) {
     console.log("[main] OAuth PKCE - exchangeCodeForSession...");
     const { error } = await supabase.auth.exchangeCodeForSession(code);
@@ -63,7 +59,6 @@ async function handleDeepLink(url: string) {
     else console.log("[main] exchangeCode OK");
     return;
   }
-
   console.warn("[main] Deep link sin token:", url);
 }
 
