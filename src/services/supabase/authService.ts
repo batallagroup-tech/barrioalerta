@@ -1,20 +1,19 @@
 import { supabase } from '../../lib/supabase';
 import { Browser } from '@capacitor/browser';
 import { Capacitor } from '@capacitor/core';
-import { App as CapApp } from '@capacitor/app';
 
 export const authService = {
 
   async signInWithGoogle(): Promise<void> {
     const redirectTo = Capacitor.isNativePlatform()
       ? 'com.barrioalerta.app://login-callback'
-      : window.location.origin;
+      : window.location.href.split('?')[0].split('#')[0];
 
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
         redirectTo,
-        skipBrowserRedirect: true, // ← Supabase nos da la URL, nosotros abrimos el browser
+        skipBrowserRedirect: true,
       },
     });
 
@@ -22,7 +21,6 @@ export const authService = {
     if (!data.url) throw new Error('No URL de OAuth');
 
     if (Capacitor.isNativePlatform()) {
-      // Abrir con InAppBrowser — la app NO va a segundo plano
       await Browser.open({
         url: data.url,
         windowName: '_self',
@@ -36,7 +34,7 @@ export const authService = {
   async signInWithMagicLink(email: string): Promise<void> {
     const redirectTo = Capacitor.isNativePlatform()
       ? 'com.barrioalerta.app://login-callback'
-      : `${window.location.origin}/login-callback`;
+      : window.location.href.split('?')[0].split('#')[0];
 
     const { error } = await supabase.auth.signInWithOtp({
       email,

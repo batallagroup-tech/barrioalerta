@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
@@ -11,6 +11,17 @@ import { Browser } from "@capacitor/browser";
 import { supabase } from "./lib/supabase";
 
 registerServiceWorker();
+
+// Manejar OAuth callback en PWA
+if (!window.Capacitor?.isNativePlatform?.()) {
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get("code");
+  if (code) {
+    supabase.auth.exchangeCodeForSession(code).then(() => {
+      window.history.replaceState({}, "", window.location.pathname);
+    });
+  }
+}
 oneSignalService.init().catch(() => {});
 admobService.initialize().catch(() => {});
 
