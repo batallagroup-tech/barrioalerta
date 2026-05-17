@@ -13,7 +13,7 @@ import { supabase } from "./lib/supabase";
 registerServiceWorker();
 
 // Manejar OAuth callback en PWA
-if (!window.Capacitor?.isNativePlatform?.()) {
+if (!(window as any).Capacitor?.isNativePlatform?.()) {
   const params = new URLSearchParams(window.location.search);
   const code = params.get("code");
   if (code) {
